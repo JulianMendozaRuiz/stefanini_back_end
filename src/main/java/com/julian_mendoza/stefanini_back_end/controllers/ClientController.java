@@ -5,9 +5,7 @@ import com.julian_mendoza.stefanini_back_end.dtos.ClientDTO;
 import com.julian_mendoza.stefanini_back_end.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +20,9 @@ public class ClientController {
         return ResponseEntity.ok(clientService.allClients());
     }
 
-    @GetMapping("/api/v1/clients/{document_number}")
-    public ResponseEntity<ClientDTO> getClient(@PathVariable String document_number) throws Exception {
-        return ResponseEntity.of(clientService.getClient(document_number));
+    @GetMapping("/api/v1/clients/{type}-{documentNumber}")
+    public ResponseEntity<ClientDTO> getClient(@PathVariable String type, @PathVariable String documentNumber) throws Exception {
+        return ResponseEntity.of(clientService.getClient(type, documentNumber));
     }
 
 }

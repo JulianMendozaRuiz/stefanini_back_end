@@ -39,8 +39,10 @@ public class ClientService {
         return clients;
     }
 
-    public Optional<ClientDTO> getClient(String documentNumber) throws Exception {
-        ClientDTO client = (ClientDTO) clients.stream().filter(c -> c.getNumero_documento().equals(documentNumber)).findFirst().orElseThrow(() -> new AppException("Client not found", HttpStatus.NOT_FOUND));
+    public Optional<ClientDTO> getClient(String documentType, String documentNumber) throws Exception {
+        List<ClientDTO> filteredClients = clients.stream().filter(c -> c.getTipo_de_documento().equals(documentType)).toList();
+
+        ClientDTO client = filteredClients.stream().filter(c -> c.getNumero_documento().equals(documentNumber)).findFirst().orElseThrow(() -> new AppException("Client not found", HttpStatus.NOT_FOUND));
 
         if (client == null) {
             throw new Exception("Client not found");
